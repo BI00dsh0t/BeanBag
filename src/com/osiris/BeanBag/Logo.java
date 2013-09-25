@@ -31,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.*;
+import android.content.pm.*;
 
 public class Logo extends Activity {
 	Toast mToast;
@@ -44,6 +46,7 @@ public class Logo extends Activity {
 
 		LinearLayout view = new LinearLayout(this);
 		view.setOrientation(LinearLayout.VERTICAL);
+		
 		view.setLayoutParams(
 			new ViewGroup.LayoutParams(
 				ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -84,6 +87,11 @@ public class Logo extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 		mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
 		mToast.setView(makeView());
