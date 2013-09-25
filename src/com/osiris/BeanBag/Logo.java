@@ -75,7 +75,7 @@ public class Logo extends Activity {
 		tv.setTextSize(size);
 		tv.setTextColor(0xFFFFFFFF);
 		tv.setShadowLayer(4*metrics.density, 0, 2*metrics.density, 0x66000000);
-		tv.setText("JELLY BEAN");
+		tv.setText("JellyBean");
 		view.addView(tv, lp);
 
 		return view;
@@ -114,7 +114,7 @@ public class Logo extends Activity {
 									  .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 												| Intent.FLAG_ACTIVITY_CLEAR_TASK
 												| Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-									  .addCategory("com.osiris.BeanBag.Logo"));
+									  .addCategory("com.osiris.BeanBag.BeanBag"));
 						//.setClassName("com.android.systemui","com.android.systemui.BeanBag"));
 					} catch (ActivityNotFoundException ex) {
 						android.util.Log.e("PlatLogoActivity", "Couldn't find a bag of beans.");
