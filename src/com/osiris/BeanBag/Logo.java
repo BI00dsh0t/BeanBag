@@ -75,7 +75,7 @@ public class Logo extends Activity {
 		tv.setTextSize(size);
 		tv.setTextColor(0xFFFFFFFF);
 		tv.setShadowLayer(4*metrics.density, 0, 2*metrics.density, 0x66000000);
-		tv.setText("JellyBean");
+		tv.setText("JELLY BEAN");
 		view.addView(tv, lp);
 
 		return view;

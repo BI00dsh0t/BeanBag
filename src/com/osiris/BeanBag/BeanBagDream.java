@@ -16,7 +16,7 @@
 
 package com.osiris.BeanBag;
 
-import android.service.dreams.DreamService;
+import com.osiris.BeanBag.DreamService;
 
 import com.osiris.BeanBag.BeanBag.Board;
 
