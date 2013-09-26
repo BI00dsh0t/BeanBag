@@ -39,6 +39,8 @@ public class Logo extends Activity {
 	ImageView mContent;
 	int mCount;
 	final Handler mHandler = new Handler();
+	public static int SDK_INT = android.os.Build.VERSION.SDK_INT;
+	public String n;
 
 	private View makeView() {
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -78,7 +80,20 @@ public class Logo extends Activity {
 		tv.setTextSize(size);
 		tv.setTextColor(0xFFFFFFFF);
 		tv.setShadowLayer(4*metrics.density, 0, 2*metrics.density, 0x66000000);
-		tv.setText("JELLY BEAN");
+		
+		if(SDK_INT == 9 || SDK_INT == 10) {
+		 n = "Gingerbread";
+		}else if (SDK_INT == 11 || SDK_INT == 12 || SDK_INT == 13) {
+			n = "Honeycomb";
+		}
+		else if (SDK_INT == 14 || SDK_INT == 15){
+			n = "ICS";
+		}
+		else if (SDK_INT >= 15) {
+			n = "JELLY BEAN";
+		}
+		
+		tv.setText(n);
 		view.addView(tv, lp);
 
 		return view;
