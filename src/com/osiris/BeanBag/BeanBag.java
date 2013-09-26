@@ -404,10 +404,7 @@ public class BeanBag extends Activity {
     public void onStart() {
         super.onStart();
 
-        // ACHIEVEMENT UNLOCKED
-        PackageManager pm = getPackageManager();
-        pm.setComponentEnabledSetting(new ComponentName(this, BeanBagDream.class),
-									  PackageManager.COMPONENT_ENABLED_STATE_ENABLED, 0);
+        
 
         getWindow().addFlags(
 			WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
