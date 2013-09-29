@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package com.osiris.BeanBag;
+package com.osiris.beanbag;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,12 +28,12 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.view.*;
-import android.content.pm.*;
 
 public class Logo extends Activity {
 	Toast mToast;
@@ -137,8 +138,8 @@ public class Logo extends Activity {
 									  .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
 												| Intent.FLAG_ACTIVITY_CLEAR_TASK
 												| Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-									  .addCategory("com.osiris.BeanBag.BeanBag"));
-						//.setClassName("com.android.systemui","com.android.systemui.BeanBag"));
+									  .addCategory("com.osiris.beanbag.BeanBag"));
+						//.setClassName("com.android.systemui","com.android.systemui.beanbag"));
 					} catch (ActivityNotFoundException ex) {
 						android.util.Log.e("PlatLogoActivity", "Couldn't find a bag of beans.");
 					}

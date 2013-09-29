@@ -14,46 +14,27 @@
  * limitations under the License.
  */
 
-package com.osiris.BeanBag;
+package com.osiris.beanbag;
 
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.PropertyValuesHolder;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.TimeAnimator;
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.graphics.PorterDuffColorFilter;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.os.Handler;
-import android.os.SystemClock;
-import android.provider.Settings;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
-import android.util.Pair;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import java.util.HashMap;
+
+import com.nineoldandroids.animation.TimeAnimator;
+import com.nineoldandroids.view.ViewHelper;
+
 import java.util.Random;
 
 public class BeanBag extends Activity {
@@ -95,6 +76,7 @@ public class BeanBag extends Activity {
             if (array.length == 0) return null;
             return array[sRNG.nextInt(array.length)];
         }
+        int beanId = pickInt(BEANS);
 
         static int pickInt(int[] array) {
             if (array.length == 0) return 0;
@@ -108,6 +90,8 @@ public class BeanBag extends Activity {
         static float LUCKY = 0.001f;
 
         static int MAX_RADIUS = (int)(576 * MAX_SCALE);
+
+        private int SDK_INT = android.os.Build.VERSION.SDK_INT;
 
         static int BEANS[] = {
 			R.drawable.redbean0,
@@ -161,6 +145,10 @@ public class BeanBag extends Activity {
                 super(context, as);
             }
 
+            public Bean(Context context) {
+                super(context);
+            }
+
             public String toString() {
                 return String.format("<bean (%.1f, %.1f) (%d x %d)>",
 									 getX(), getY(), getWidth(), getHeight());
@@ -190,14 +178,22 @@ public class BeanBag extends Activity {
                 /* G */ M[5]  = (float)((color & 0x0000FF00) >> 8)  / 0xFF;
                 /* B */ M[10] = (float)((color & 0x000000FF))       / 0xFF;
                 pt.setColorFilter(new ColorMatrixColorFilter(M));
+
+                if(SDK_INT >= 11) {
                 setLayerType(View.LAYER_TYPE_HARDWARE, (beanId == R.drawable.jandycane) ? null : pt);
+                }
             }
 
             public void reset() {
                 pickBean();
 
                 final float scale = lerp(MIN_SCALE,MAX_SCALE,z);
-                setScaleX(scale); setScaleY(scale);
+                for (int i=0; i<getChildCount(); i++) {
+                    View v = getChildAt(i);
+                    ViewHelper.setScaleX(v,scale); ViewHelper.setScaleY(v,scale);
+                }
+
+
 
                 r = 0.3f*Math.max(h,w)*scale;
 
@@ -208,7 +204,7 @@ public class BeanBag extends Activity {
                 vy = randfrange(-40,40) * z;
                 final float boardh = boardHeight;
                 final float boardw = boardWidth;
-                //android.util.Log.d("BeanBag", "reset: w="+w+" h="+h);
+                //android.util.Log.d("beanbag", "reset: w="+w+" h="+h);
                 if (flip()) {
                     x=(vx < 0 ? boardw+2*r : -r*4f);
                     y=(randfrange(0, boardh-3*r)*0.5f + ((vy < 0)?boardh*0.5f:0));
@@ -270,7 +266,10 @@ public class BeanBag extends Activity {
         public Board(Context context, AttributeSet as) {
             super(context, as);
 
-            setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+
+            if(SDK_INT >= 11){
+                setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+            }
 
             setWillNotDraw(!DEBUG);
         }
@@ -286,6 +285,7 @@ public class BeanBag extends Activity {
             for(int i=0; i<NUM_BEANS; i++) {
                 Bean nv = new Bean(getContext(), null);
                 addView(nv, wrap);
+                nv.setId(-1);
                 nv.z = ((float)i/NUM_BEANS);
                 nv.z *= nv.z;
                 nv.reset();
@@ -320,9 +320,9 @@ public class BeanBag extends Activity {
 								final float overlap = nv.overlap(nv2);
 							}
 
-							nv.setRotation(nv.a);
-							nv.setX(nv.x-nv.getPivotX());
-							nv.setY(nv.y-nv.getPivotY());
+                            ViewHelper.setRotation(nv,nv.a);
+                            ViewHelper.setX(nv,nv.x-ViewHelper.getPivotX(nv));
+                            ViewHelper.setY(nv,nv.y-ViewHelper.getPivotY(nv));
 
 							if (   nv.x < - MAX_RADIUS
 								|| nv.x > boardWidth + MAX_RADIUS
@@ -376,7 +376,7 @@ public class BeanBag extends Activity {
         @Override
         public void onDraw(Canvas c) {
             if (DEBUG) {
-                //android.util.Log.d("BeanBag", "onDraw");
+                //android.util.Log.d("beanbag", "onDraw");
                 Paint pt = new Paint();
                 pt.setAntiAlias(true);
                 pt.setStyle(Paint.Style.STROKE);
@@ -388,8 +388,8 @@ public class BeanBag extends Activity {
                 for (int i=0; i<getChildCount(); i++) {
                     Bean b = (Bean) getChildAt(i);
                     final float a = (360-b.a)/180f*3.14159f;
-                    final float tx = b.getTranslationX();
-                    final float ty = b.getTranslationY();
+                    final float tx = ViewHelper.getTranslationX(b);
+                    final float ty = ViewHelper.getTranslationY(b);
                     c.drawCircle(b.x, b.y, b.r, pt);
                     c.drawCircle(tx, ty, 4, pt);
                     c.drawLine(b.x, b.y, (float)(b.x+b.r*Math.sin(a)), (float)(b.y+b.r*Math.cos(a)), pt);

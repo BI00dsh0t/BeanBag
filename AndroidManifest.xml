@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.osiris.BeanBag"
+    package="com.osiris.beanbag"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -13,8 +13,8 @@
         android:label="@string/app_name" >
         <activity
             android:label="@string/app_name"
-            android:name=".Logo" 
-			android:theme="@android:style/Theme.Wallpaper">
+            android:name=".Logo"
+            android:theme="@style/AppTheme">
 			
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
@@ -27,19 +27,12 @@
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN"/>
 				<category android:name="android.intent.category.DEFAULT"/>
-				<category android:name="com.osiris.BeanBag.BeanBag"/>
+				<category android:name="com.osiris.beanbag.BeanBag"/>
 				<!--
 				<category android:name="android.intent.category.LAUNCHER" />
 				-->
 			</intent-filter>
 		</activity>
-		<!-- Beans in space -->
-		<service android:name=".BeanBagDream" android:exported="true" android:label="BeanBag" android:enabled="false">
-			<intent-filter>
-				<action android:name="android.service.dreams.DreamService"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-			</intent-filter>
-		</service>
     </application>
 
 </manifest>
