@@ -23,6 +23,7 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -183,11 +184,14 @@ public class BeanBag extends Activity {
                 M[5] = (float) ((color & 0x0000FF00) >> 8) / 0xFF;
                 /* B */
                 M[10] = (float) ((color & 0x000000FF)) / 0xFF;
-                pt.setColorFilter(new ColorMatrixColorFilter(M));
 
-                if (SDK_INT >= 11) {
-                    setLayerType(View.LAYER_TYPE_HARDWARE, (beanId == R.drawable.jandycane) ? null : pt);
+                if (beanId != R.drawable.jandycane) {
+                bean.mutate().setColorFilter(new ColorMatrixColorFilter(M));
                 }
+
+                //if (SDK_INT >= 11) {
+                    //setLayerType(View.LAYER_TYPE_HARDWARE, (beanId == R.drawable.jandycane) ? null : pt);
+                //}
             }
 
             public void reset(View v) {
