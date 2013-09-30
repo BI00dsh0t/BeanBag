@@ -29,7 +29,7 @@
                 android:label="BeanBag"
                 android:icon="@drawable/redbean2"
                 android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
-                android:hardwareAccelerated="false"
+                android:hardwareAccelerated="true"
                 android:launchMode="singleInstance"
                 android:excludeFromRecents="false">
             <intent-filter>
