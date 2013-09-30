@@ -1,38 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.osiris.beanbag"
-    android:versionCode="1"
-    android:versionName="1.0" >
+          package="com.osiris.beanbag"
+          android:versionCode="1"
+          android:versionName="1.0">
 
-    <uses-sdk 
-        android:minSdkVersion="8" 
-        android:targetSdkVersion="11" />
+    <uses-sdk
+            android:minSdkVersion="8"
+            android:targetSdkVersion="11"/>
 
     <application
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name">
         <activity
-            android:label="@string/app_name"
-            android:name=".Logo"
-            android:theme="@style/AppTheme">
-			
-            <intent-filter >
-                <action android:name="android.intent.action.MAIN" />
+                android:label="@string/app_name"
+                android:name=".Logo"
+                android:theme="@style/AppTheme">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-		<!-- started from ... somewhere -->
-		<activity android:name=".BeanBag" android:exported="true" android:label="BeanBag" android:icon="@drawable/redbean2" android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen" android:hardwareAccelerated="false" android:launchMode="singleInstance" android:excludeFromRecents="false">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.DEFAULT"/>
-				<category android:name="com.osiris.beanbag.BeanBag"/>
-				<!--
-				<category android:name="android.intent.category.LAUNCHER" />
-				-->
-			</intent-filter>
-		</activity>
+        <!-- started from ... somewhere -->
+        <activity
+                android:name=".BeanBag"
+                android:exported="true"
+                android:label="BeanBag"
+                android:icon="@drawable/redbean2"
+                android:theme="@android:style/Theme.Wallpaper.NoTitleBar.Fullscreen"
+                android:hardwareAccelerated="false"
+                android:launchMode="singleInstance"
+                android:excludeFromRecents="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="com.osiris.beanbag.BeanBag"/>
+                <!--
+                <category android:name="android.intent.category.LAUNCHER" />
+                -->
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
