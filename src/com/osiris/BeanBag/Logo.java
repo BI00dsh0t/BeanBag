@@ -36,118 +36,116 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Logo extends Activity {
-	Toast mToast;
-	ImageView mContent;
-	int mCount;
-	final Handler mHandler = new Handler();
-	public static int SDK_INT = android.os.Build.VERSION.SDK_INT;
-	public String n;
+    Toast mToast;
+    ImageView mContent;
+    int mCount;
+    final Handler mHandler = new Handler();
+    public static int SDK_INT = android.os.Build.VERSION.SDK_INT;
+    public String n;
 
-	private View makeView() {
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    private View makeView() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
-		LinearLayout view = new LinearLayout(this);
-		view.setOrientation(LinearLayout.VERTICAL);
-		
-		view.setLayoutParams(
-			new ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.WRAP_CONTENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT
-			));
-		final int p = (int)(8 * metrics.density);
-		view.setPadding(p, p, p, p);
+        LinearLayout view = new LinearLayout(this);
+        view.setOrientation(LinearLayout.VERTICAL);
 
-		Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
-		Typeface normal = Typeface.create("sans-serif", Typeface.BOLD);
+        view.setLayoutParams(
+                new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                ));
+        final int p = (int) (8 * metrics.density);
+        view.setPadding(p, p, p, p);
 
-		final float size = 14 * metrics.density;
-		final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.WRAP_CONTENT,
-			LinearLayout.LayoutParams.WRAP_CONTENT);
-		lp.gravity = Gravity.CENTER_HORIZONTAL;
-		lp.bottomMargin = (int) (-4*metrics.density);
+        Typeface light = Typeface.create("sans-serif-light", Typeface.NORMAL);
+        Typeface normal = Typeface.create("sans-serif", Typeface.BOLD);
 
-		TextView tv = new TextView(this);
-		if (light != null) tv.setTypeface(light);
-		tv.setTextSize(1.25f*size);
-		tv.setTextColor(0xFFFFFFFF);
-		tv.setShadowLayer(4*metrics.density, 0, 2*metrics.density, 0x66000000);
-		tv.setText("Android " + Build.VERSION.RELEASE);
-		view.addView(tv, lp);
-		
-		tv = new TextView(this);
-		if (normal != null) tv.setTypeface(normal);
-		tv.setTextSize(size);
-		tv.setTextColor(0xFFFFFFFF);
-		tv.setShadowLayer(4*metrics.density, 0, 2*metrics.density, 0x66000000);
-		
-		if(SDK_INT == 9 || SDK_INT == 10) {
-		 n = "Gingerbread";
-		}else if (SDK_INT == 11 || SDK_INT == 12 || SDK_INT == 13) {
-			n = "Honeycomb";
-		}
-		else if (SDK_INT == 14 || SDK_INT == 15){
-			n = "ICS";
-		}
-		else if (SDK_INT >= 15) {
-			n = "JELLY BEAN";
-		}
-		
-		tv.setText(n);
-		view.addView(tv, lp);
+        final float size = 14 * metrics.density;
+        final LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.CENTER_HORIZONTAL;
+        lp.bottomMargin = (int) (-4 * metrics.density);
 
-		return view;
-	}
+        TextView tv = new TextView(this);
+        if (light != null) tv.setTypeface(light);
+        tv.setTextSize(1.25f * size);
+        tv.setTextColor(0xFFFFFFFF);
+        tv.setShadowLayer(4 * metrics.density, 0, 2 * metrics.density, 0x66000000);
+        tv.setText("Android " + Build.VERSION.RELEASE);
+        view.addView(tv, lp);
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        tv = new TextView(this);
+        if (normal != null) tv.setTypeface(normal);
+        tv.setTextSize(size);
+        tv.setTextColor(0xFFFFFFFF);
+        tv.setShadowLayer(4 * metrics.density, 0, 2 * metrics.density, 0x66000000);
 
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        if (SDK_INT == 9 || SDK_INT == 10) {
+            n = "Gingerbread";
+        } else if (SDK_INT == 11 || SDK_INT == 12 || SDK_INT == 13) {
+            n = "Honeycomb";
+        } else if (SDK_INT == 14 || SDK_INT == 15) {
+            n = "ICS";
+        } else if (SDK_INT >= 15) {
+            n = "JELLY BEAN";
+        }
 
-		mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
-		mToast.setView(makeView());
+        tv.setText(n);
+        view.addView(tv, lp);
 
-		DisplayMetrics metrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        return view;
+    }
 
-		mContent = new ImageView(this);
-		mContent.setImageResource(R.drawable.platlogo_alt);
-		mContent.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-		
-		final int p = (int)(32 * metrics.density);
-		mContent.setPadding(p, p, p, p);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-		mContent.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					mToast.show();
-					mContent.setImageResource(R.drawable.platlogo);
-				}
-			});
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		mContent.setOnLongClickListener(new View.OnLongClickListener() {
-				@Override
-				public boolean onLongClick(View v) {
-					try {
-						startActivity(new Intent(Intent.ACTION_MAIN)
-									  .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-												| Intent.FLAG_ACTIVITY_CLEAR_TASK
-												| Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-									  .addCategory("com.osiris.beanbag.BeanBag"));
-						//.setClassName("com.android.systemui","com.android.systemui.beanbag"));
-					} catch (ActivityNotFoundException ex) {
-						android.util.Log.e("PlatLogoActivity", "Couldn't find a bag of beans.");
-					}
-					finish();
-					return true;
-				}
-			});
-		
-		setContentView(mContent);
-	}
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+        mToast = Toast.makeText(this, "", Toast.LENGTH_LONG);
+        mToast.setView(makeView());
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        mContent = new ImageView(this);
+        mContent.setImageResource(R.drawable.platlogo_alt);
+        mContent.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
+        final int p = (int) (32 * metrics.density);
+        mContent.setPadding(p, p, p, p);
+
+        mContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mToast.show();
+                mContent.setImageResource(R.drawable.platlogo);
+            }
+        });
+
+        mContent.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                try {
+                    startActivity(new Intent(Intent.ACTION_MAIN)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                    | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                    | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+                            .addCategory("com.osiris.beanbag.BeanBag"));
+                    //.setClassName("com.android.systemui","com.android.systemui.beanbag"));
+                } catch (ActivityNotFoundException ex) {
+                    android.util.Log.e("PlatLogoActivity", "Couldn't find a bag of beans.");
+                }
+                finish();
+                return true;
+            }
+        });
+
+        setContentView(mContent);
+    }
 }
