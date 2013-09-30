@@ -73,7 +73,7 @@ public class Logo extends Activity {
         tv.setTextSize(1.25f * size);
         tv.setTextColor(0xFFFFFFFF);
         tv.setShadowLayer(4 * metrics.density, 0, 2 * metrics.density, 0x66000000);
-        tv.setText("Android " + Build.VERSION.RELEASE);
+        tv.setText("Android " + "2.3.5");
         view.addView(tv, lp);
 
         tv = new TextView(this);
@@ -82,15 +82,7 @@ public class Logo extends Activity {
         tv.setTextColor(0xFFFFFFFF);
         tv.setShadowLayer(4 * metrics.density, 0, 2 * metrics.density, 0x66000000);
 
-        if (SDK_INT == 9 || SDK_INT == 10) {
-            n = "Gingerbread";
-        } else if (SDK_INT == 11 || SDK_INT == 12 || SDK_INT == 13) {
-            n = "Honeycomb";
-        } else if (SDK_INT == 14 || SDK_INT == 15) {
-            n = "ICS";
-        } else if (SDK_INT >= 15) {
-            n = "JELLY BEAN";
-        }
+        n = "Halo Bean";
 
         tv.setText(n);
         view.addView(tv, lp);
